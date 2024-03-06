@@ -1,53 +1,45 @@
-# Bioinfo Project 2023
+# Bioinfo Project 2024
 
-This repository contains materials for the bioinfomatics project (2023 L3 INFO Paris-Saclay).
-The goal of this project is to identify biomarkers associated with ALS disease. 
-To do this, you have access to RNA-Seq sequencing data from post-mortem brain cortex biopsies from individuals who had ALS and others who did not.
+This repository contains materials for the bioinformatics project (2024 L3 INFO, Paris-Saclay). The objective of this project is to identify biomarkers associated with ALS (Amyotrophic Lateral Sclerosis) disease. To achieve this, you will have access to RNA-Seq sequencing data from post-mortem brain cortex biopsies of individuals diagnosed with ALS and those without the disease.
 
-The data for this project comes from the study "Postmortem Cortex Samples Identify Distinct Molecular Subtypes of ALS: Retrotransposon Activation, Oxidative Stress, and Activated Glia" by Tam et al. The full study can be found [here](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6866666/).
+The data for this project originate from the study titled "Postmortem Cortex Samples Identify Distinct Molecular Subtypes of ALS: Retrotransposon Activation, Oxidative Stress, and Activated Glia" by Tam et al. The complete study is available [here](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6866666/).
 
 ## Introduction
 
-This README will guide you throughout the project and your analyses. All steps below must be completed. Unless explicitly stated otherwise in the document (E.g., the mandaotry instructions), you have full freedom regarding the different options available to accomplish all tasks, especially concerning the coding.
-This document will be updated at each session. 
-Refer to the update date above.
+This README will serve as your guide throughout the project and your analyses. Please follow all the steps listed below. Unless specified otherwise within this document (e.g., mandatory instructions), you are granted complete freedom in choosing how to accomplish each task, particularly in regards to coding techniques.
 
-You will work in pairs, from the begining. 
-You are allowed to discuss with other pairs, but no direct code sharing (copy/paste etc). 
-During all the project, note precisely your personnal contribution and the contribution of your pair.
-You be asked for this during the last session (~15 min oral presentation, see below). 
+This document will receive updates after each session. Always refer to the most recent update date mentioned above.
 
-During each of the first sessions, you will be given lessons/introductions on notions you may not have yet. 
-Once this lessons start, stop all of your activities and follow the lessons, even if you are familar with the concept.
+You will work in pairs from the beginning. While discussions with other pairs are encouraged, direct code sharing (such as copy/paste) is strictly prohibited. Throughout the project, meticulously record both your personal contribution and that of your partner. This information will be required during the final session, which will include a roughly 15-minute oral presentation (details to follow).
 
-At the end of your project, you must send by email (phd.rinaudo@gmail.com):
+In the initial sessions, you will receive lessons or introductions on concepts that may be new to you. Once these lessons begin, please pause all other activities and attend the sessions, even if you are already familiar with the concepts being discussed.
+
+At the conclusion of your project, you are required to submit the following components via email to philippe.rinaudo@universite-paris-saclay.fr:
 - All your code,
-- A report containing the result of your analyses,
-- A text file (.csv, .txt...) contaning the ordered list of your top 100 genes (first = better).
+- A comprehensive report detailing the results of your analyses,
+- A text file (either .csv, .txt, or similar) containing a ranked list of your top 100 genes (with the most significant gene listed first).
 
-The email must have the subject: "Projet_bioinfo_2023_nom1_prenom1_nom2_prenom2" and contains an archive named: "nom1_prenom1_nom2_prenom2" with all the listed requirements.
+The subject line of the email should read: "Projet_bioinfo_2024_lastname1_firstname1_lastname2_firstname2". Additionally, please include an archive named lastname1_firstname1_lastname2_firstname2" containing all the required elements mentioned above.
 
-The limit date to send your project is: <ins>**4 MAY 2023**</ins>.
+The submission deadline for your project is 15 MAY 2024 (to be confirmed).
 
-Note: It is possible to mix code and report in a notebook, and to mix notebook and independent code. 
-However, the report must be contained in a single document.
-The criteria for evaluation will be (in order):
-- Compliance with instructions,
-- Clarity of code,
-- Clarity of the report,
-- Relevance of the code,
-- Results found.
+Note that it is permissible to integrate your code and report within a single notebook, as well as to combine the notebook with standalone code files. However, the report must be consolidated into a single document for submission. The evaluation criteria will prioritize the following, in order:
 
-## Last Session:
-The last session (12th April 2023) will be a "presentation session":
-- 15 minutes
-- Present the current state of your work
-- Present what you are going to do after (unless you have finished the project)
-- Bring your code and draft report.
+Adherence to the provided instructions,
+The clarity of your code,
+The clarity of your report,
+The relevance and efficiency of your code,
+The significance and accuracy of your findings.
+Last Session:
+The final session, scheduled for 12th April 2023, will be dedicated to presentations:
 
-You don't have to prepare slides or other supports.
+You will have 15 minutes to present.
+Discuss the current progress of your work.
+Outline your next steps, unless your project is already complete.
+Have your code and a draft of your report ready for discussion.
+There is no need to prepare formal slides or other presentation materials.
 
-Plan to speak ~5 minutes (=> ~10 minutes of Q&A).
+Aim to speak for approximately 5 minutes, leaving about 10 minutes for questions and answers.
 
 ## Mandatory general instructions:
 - The programming language used must be Python (and only Python),
