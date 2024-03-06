@@ -24,60 +24,54 @@ The subject line of the email should read: "Projet_bioinfo_2024_lastname1_firstn
 The submission deadline for your project is 15 MAY 2024 (to be confirmed).
 
 Note that it is permissible to integrate your code and report within a single notebook, as well as to combine the notebook with standalone code files. However, the report must be consolidated into a single document for submission. The evaluation criteria will prioritize the following, in order:
+- Adherence to the provided instructions,
+- The clarity of your code,
+- The clarity of your report,
+- The relevance and efficiency of your code,
+- The significance and accuracy of your findings.
 
-Adherence to the provided instructions,
-The clarity of your code,
-The clarity of your report,
-The relevance and efficiency of your code,
-The significance and accuracy of your findings.
-Last Session:
-The final session, scheduled for 12th April 2023, will be dedicated to presentations:
+## Last Session:
 
-You will have 15 minutes to present.
-Discuss the current progress of your work.
-Outline your next steps, unless your project is already complete.
-Have your code and a draft of your report ready for discussion.
-There is no need to prepare formal slides or other presentation materials.
+The final session, scheduled for 10th April 2024, will be dedicated to presentations:
+- You will have 15 minutes to present,
+- Discuss the current progress of your work,
+- Outline your next steps, unless your project is already complete,
+- Have your code and a draft of your report ready for discussion,
+- There is no need to prepare formal slides or other presentation materials,
 
 Aim to speak for approximately 5 minutes, leaving about 10 minutes for questions and answers.
 
-## Mandatory general instructions:
-- The programming language used must be Python (and only Python),
-- No dependencies other than Python modules should be used (Jupiter notebooks accepted),
-- Unzipping your archive will produce a folder name "nom_prenom", this is "your folder",
-- The code should run once your folder is placed in this repository (i.e. use relative paths only!!),
-- The code should not produce any file outside of your folder,
-- The code must be commented,
-- The code must follow PEP 8 as much as possible,
-- The code must contain unit tests,
-- The code must be object-oriented.
+## Mandatory General Instructions:
+- Programming Language: Your project must be coded in Python exclusively,
+- Dependencies: Only Python modules are allowed for use, including Jupyter notebooks,
+- Archive Content: Extracting your archive should create a folder named "nom_prenom" (your folder),
+- Code Execution: Ensure your code runs correctly when your folder is placed within this repository by using relative paths only,
+- File Management: Your code must not create any files outside of your designated folder,
+- Code Comments: All code should be thoroughly commented,
+- Coding Standards: Adhere to PEP 8 guidelines as closely as possible for coding style,
+- Testing: Include unit tests within your code,
+- Design Paradigm: Your code should be designed in an object-oriented manner as much as possible,
 
-Note: the objective is to perform an analysis. Therefore, you should not (necessarily) aimed to produce a bioinformatic pipeline robust to changes in the data format for example.
-However, it is expected that you ensure that all analyses are correct, in a way or in another.
+Note: The primary goal is to conduct an analysis. You are not required to develop a bioinformatics pipeline that is robust to data format changes. However, it's crucial to ensure the accuracy of all analyses by any necessary means.
 
-## Final note:
-You will find in the following several steps to help you for the analysis of the data. 
-Some steps will tell you exactly what to do, and some will be very open, requiring an investigation and a reflexion. 
-Before coding an analysis you could have imagined, present it to me so that I can advise you. 
-Also do not rush the avalaible steps, follow the cadence of the sessions. 
-For difficult steps, I will initiate and conduct the reflexion. 
+## Final Note:
+Within this document, you will find a series of steps intended to guide your analysis. Some steps provide clear instructions on what to do, while others are more open-ended, requiring investigation and thoughtful consideration. Before implementing any analyses you conceive, present them for approval to ensure they align with project goals. Do not rush through the available steps; follow the session pace instead. For more challenging steps, I will guide the discussion and thought process.
 
 # Step 1 - Data Preprocessing
-You have access to the raw data of the study in the folder "Data".
-This folder contains two information:
-- The RNA counts of each sample,
-- An annotation file, giving information on the experiment, and (more interestingly) the samples.
 
-Download the data and start to preprocess them.
+You have access to the raw data for the study in the "Data" folder. This folder contains two types of information:
+- The RNA counts for each sample,
+- An annotation file providing details on the experiment and, more importantly, the samples.
+Begin by downloading the data and initiating the preprocessing.
 
-## Gather RNA counts
-To analyze the samples, you will need to merge them into a single Python object.
-One standard way to do this is to build a dataframe (or any "table like" struture) such as each row is "sample" and each column is a "gene". Make sure to test your dataset, so that if you change something later on, errors can be catch easily.
+## Gather RNA Counts
 
-Don't forget that the code should be object-oriented.
+To analyze the samples, you will need to consolidate them into a single Python object. A common approach is to create a dataframe (or any "table-like" structure) where each row represents a "sample" and each column represents a "gene". It's crucial to thoroughly test your dataset to ensure that any future modifications can be easily identified and corrected.
 
-You can fit your code on the exact state of the data, i.e., design your code to work on thise data on not necessarily on other. 
-Here is an example on how you can load the data
+Remember, your code must follow an object-oriented design.
+
+Your code can be specifically tailored to the current state of the data, meaning it should be designed to work with this particular dataset rather than being universally applicable. Below is an example of how you can load the data.
+
 ```python
 import pandas as pd
 import glob
@@ -97,19 +91,17 @@ for fname in glob.glob(path+"/*.txt"):
 data_matrix = pd.concat(pdList, 1) # concat all dataframe in 1 dataframe
 data_matrix = data_matrix.transpose() # transpose the dataframe to get a more standard shape (samples x variables)
 ```
-This code should be included in an oriented object code. 
-Also, this code assummes that each file is correct, contains no error etc... 
-This is something to check to be rigorous. 
+This code should be integrated into an object-oriented design. Additionally, it assumes that each file is correct and free of errors, which is an aspect that must be verified to ensure thoroughness.
 
-## Gather sample annotations
-The sample annotations are all placed in a unique "xml" file. First, open the file with any text editor, and try to understand its architecture. Then, identify the information that could be relevant for your analysis. 
+## Gather Sample Annotations
 
-Finally, create a dataframe (or any "table like" structure) such as each row is a samples and each column an annotation. Make sur to test your dataset (gene counts+annotations) so that you can catch any error in the next steps.
+The sample annotations are consolidated into a single "xml" file. Initially, open this file with any text editor to familiarize yourself with its structure. Then, determine which pieces of information are pertinent to your analysis.
 
-To parse an xml, you can use the library "xml.etree.ElementTree".
-You need to explore the file manually (using a text editor) to catch the structure and the name of all blocks etc...
-The samples are contained in blocks named "Sample", and other information are in other blocks that you need to identify.
-Here is an example to make a dataframe containing only on column corresponding to the "Cns_subregion".
+Subsequently, construct a dataframe (or any "table-like" structure) where each row represents a sample and each column an annotation. Ensure to rigorously test your dataset (combining gene counts and annotations) to promptly identify and address any discrepancies in subsequent steps.
+
+To parse an XML file, you can employ the "xml.etree.ElementTree" library. It will require manually exploring the file (using a text editor) to understand the structure and identify all relevant sections. The samples are encapsulated within blocks named "Sample," with additional information located in other blocks that you will need to discern.
+
+Below is an example on how to create a dataframe with a single column corresponding to the "Cns_subregion".
 
 ```python
 data_annotation = pd.DataFrame(columns = ['Sample_id', 'Cns_subregion']) # initialisation of the dataframe
@@ -126,18 +118,16 @@ for child in xroot.iter("{http://www.ncbi.nlm.nih.gov/geo/info/MINiML}Sample"):
     data_annotation = pd.concat([data_annotation, temp_df])
 ```
 
-## Make first preprocessing functions
-By now, you should already have at least one class in your code, with associated getters and setters.
-By getters and setters I mean methods that should be used to access to the attributes of instances. 
-Good pratice is to prevent the direct access of the instance attributes, so that you can control the way they can be update. 
-To do this in python, you can use the prefixe "__" before the attribute name. 
+## Create Initial Preprocessing Functions
+At this stage, your code should already include at least one class, accompanied by associated getters and setters. By getters and setters, I refer to methods that facilitate access to an instance's attributes. It is considered best practice to restrict direct access to the instance attributes, allowing you to manage how they can be updated. In Python, this can be achieved by using the prefix "__" before the attribute name, which makes the attribute private and accessible only within its class through defined methods.
 ```python
 class ALS_RNAseq:
     def __init__(self):
         self.__data_matrix = []
 ```
-This way, the attribute "__data_matrix" can not be change or even read outside of the class. 
-A getter (or setter) method need to be developped for this purpose. 
+
+By adopting this approach, the attribute "__data_matrix" becomes inaccessible for modification or even reading from outside the class. To enable access to this attribute, it is necessary to develop a getter (or setter) method specifically for this purpose. These methods provide a controlled way of accessing and updating the private attribute, ensuring that any changes to "__data_matrix" are handled appropriately within the class's defined interface.
+
 ```python
 class ALS_RNAseq:
     def __init__(self):
@@ -146,13 +136,13 @@ class ALS_RNAseq:
     def get_data_matrix(self):
         return self.__data_matrix
 ```
-In this example, the getter method have no real interest, but anyway it is good pratice. 
-Think about other preprocessing functions that could usefull for the next steps. 
-For example, functions that can check if you have all needed annotations, or function that can subset your data based on some annotation criteria (i.e., get the subdataframe the "control" samples only). Or functions that modified one attribute (e.g., the data matrix) and update accordingly the other attributes (e.g., the annotations).
 
-At last, you may want a convient way to "check" or look at your objects. 
-Therefore a "print" function can be defined. 
-By simply defining a "__str__" method in your class you can change the behevior of the "print" function when used with your class objects. 
+In this instance, the getter method might not seem particularly useful, but adopting this approach is considered good practice. It establishes a foundation for more advanced functionality and maintains the integrity and security of the data within your class.
+
+Think about other preprocessing functions that could be beneficial for subsequent steps. For instance, functions that verify the completeness of required annotations or that allow for the subsetting of your data based on specific annotation criteria (e.g., extracting a sub-dataframe for "control" samples only). Additionally, consider functions that can modify one attribute (such as the data matrix) and update related attributes (like the annotations) accordingly.
+
+Lastly, it might be useful to have a convenient method to "check" or examine your objects. Therefore, defining a "print" function can be particularly helpful. This can be achieved by implementing the "str" method within your class, which alters how the "print" function behaves when applied to your class objects. This method allows you to define a custom string representation of your objects, making it easier to understand their state or contents at a glance.
+
 ```python
 class ALS_RNAseq:
     def __init__(self):
@@ -165,22 +155,24 @@ class ALS_RNAseq:
         return "put here what you want to print"
 ```
 
-# Step 2 - Descriptive analysis
-The descriptive analysis covers all kind of analyses that are direct description of the data, such as computing mean, standard deviation, histogram, boxplot...
+# Step 2 - Descriptive Analysis
 
-## Samples description:
-For each sample, compute the mean (across all genes), the median, the standard deviation. Find a way to efficiently report all those data.
+Descriptive analysis encompasses all kinds of direct data descriptions, such as calculating means, standard deviations, and generating histograms and box plots.
 
-Use the annotation data to describe your whole dataset. How many "disease groups", how many sample "sources", how many samples per individual etc... 
-This description should guide you for the next step, in order to either correctly group your data when comparing subsets of samples or to avoid potential bias.
+## Sample Description:
 
-You should output all information relative to the samples concisely, so that we have a full (but summarize) view of our sample.
+For each sample, calculate the mean (across all genes), the median, and the standard deviation. Devise an efficient method to report these data comprehensively.
 
-## RNA counts description:
-For each gene, compute the mean (across all samples), the median and the standard deviation. Find a way to efficiently report all those data, and make your first interpretation. *Spoiler* : you may have to use graphs and transform/manipulate the data.
+Utilize the annotation data to characterize your entire dataset. Detail the number of "disease groups," the variety of sample "sources," and the count of samples per individual, among other aspects. This overview should assist you in planning the next steps, enabling you to group your data correctly when comparing subsets of samples or to identify and mitigate potential biases.
 
-Samples correspond to different individuals, to ALS or control individuals etc... Think about what kind of subsets you could analyse and why (and do the descriptive analysis for those subsets).
+Your goal is to concisely present all relevant information about the samples, providing a comprehensive yet summarized view of your dataset.
 
-## Start your report
-At this step, you should have already begin your report. 
-Before going futher, clean your code and refine your report.
+## RNA Counts Description:
+
+For each gene, calculate the mean (across all samples), the median, and the standard deviation. Develop an effective strategy to report these data and offer your initial interpretations. Spoiler: You may need to employ graphical representations and undertake data transformation or manipulation.
+
+Given that samples represent different individuals, including ALS patients and control subjects, contemplate the subsets of data that could be analyzed and the rationale for selecting these subsets. Conduct the descriptive analysis for these chosen subsets.
+
+## Begin Your Report:
+
+At this juncture, you should have already started drafting your report. Before proceeding further, take this opportunity to refine your code and enhance your report, ensuring clarity and coherence in your presentation of the analyses conducted so far.
