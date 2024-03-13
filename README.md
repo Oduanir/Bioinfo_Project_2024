@@ -161,17 +161,30 @@ Descriptive analysis encompasses all kinds of direct data descriptions, such as 
 
 ## Sample Description:
 
-For each sample, calculate the mean (across all genes), the median, and the standard deviation. Devise an efficient method to report these data comprehensively.
+For each sample, calculate the mean (across all genes), the median, and the standard deviation. Devise an efficient method to report these data comprehensively. Utilize the annotation data to characterize your entire dataset. Detail the number of "disease groups," the variety of sample "sources," and the count of samples per individual, among other aspects. This overview should assist you in planning the next steps, enabling you to group your data correctly when comparing subsets of samples or to identify and mitigate potential biases.
 
-Utilize the annotation data to characterize your entire dataset. Detail the number of "disease groups," the variety of sample "sources," and the count of samples per individual, among other aspects. This overview should assist you in planning the next steps, enabling you to group your data correctly when comparing subsets of samples or to identify and mitigate potential biases.
+Your goal is to concisely present all relevant information about the samples, providing a comprehensive yet summarized view of your dataset. To achieve this, consider the use of the following visualizations:
 
-Your goal is to concisely present all relevant information about the samples, providing a comprehensive yet summarized view of your dataset.
+- Bar Charts for "Disease Groups" and Sample "Sources": Create bar charts to show the distribution of samples across different disease groups and sources. This will help you quickly visualize the diversity and spread within your dataset.
+- Histograms for Measures of Central Tendency and Dispersion: Use histograms to represent the distribution of means, medians, and standard deviations calculated for each sample. This will provide an overview of the variability in gene expression across your study.
+- Summary Tables: Prepare tables to summarize key information, such as the number of samples per disease group, source, and individual. Also include a summary table of descriptive statistics (mean, median, standard deviation) for each sample.
+- Box Plots: For a more detailed analysis of gene expression distribution, use box plots for each disease group or sample source. This allows for the visualization of medians, quartiles, and outliers.
+- Heatmaps: Although a detailed statistical analysis is not required at this stage, a heatmap showing gene expression across different samples or groups can provide a preliminary visualization of expression patterns.
 
 ## RNA Counts Description:
 
-For each gene, calculate the mean (across all samples), the median, and the standard deviation. Develop an effective strategy to report these data and offer your initial interpretations. Spoiler: You may need to employ graphical representations and undertake data transformation or manipulation.
+For each gene, calculate the mean (across all samples), the median, and the standard deviation. Develop an effective strategy to report these data and offer your initial interpretations. Note that you may need to employ graphical representations and undertake data transformation or manipulation to achieve a clear understanding of the data.
 
 Given that samples represent different individuals, including ALS patients and control subjects, contemplate the subsets of data that could be analyzed and the rationale for selecting these subsets. Conduct the descriptive analysis for these chosen subsets.
+
+To facilitate this analysis, consider the following steps and visualizations:
+
+- Gene Expression Overview: Start with basic statistics (mean, median, standard deviation) for each gene across all samples. This foundational analysis helps identify genes with high variability, potentially indicating differential expression related to disease status or other factors.
+- Data Transformation: Given the likely skewed distribution of gene expression data, log transformation (i.e., just log the counts) or other normalization methods might be necessary to stabilize variance and improve the interpretability of statistical analyses.
+- Graphical Representations:
+-- Box Plots: Display the distribution of expression levels for each gene across ALS patients and control subjects. Box plots are excellent for visualizing the central tendency, dispersion, and outliers within each group.
+-- Histograms: Use histograms to illustrate the distribution of expression levels for selected genes, helping to understand the skewness or bimodality of the data.
+-- Heatmaps: Create heatmaps to compare gene expression patterns across samples. This is particularly useful for identifying groups of genes that behave similarly across ALS patients versus controls.
 
 ## Begin Your Report:
 
