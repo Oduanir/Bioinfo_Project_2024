@@ -189,3 +189,46 @@ To facilitate this analysis, consider the following steps and visualizations:
 ## Begin Your Report:
 
 At this juncture, you should have already started drafting your report. Before proceeding further, take this opportunity to refine your code and enhance your report, ensuring clarity and coherence in your presentation of the analyses conducted so far.
+
+# Step 3 - PCA
+As you may have observed, the number of genes is far too high to compare all samples using all genes with simple analyses. 
+The PCA is a classical first step analysis in those cases, and offers (among other things) a good way to visualize your data.
+To understand what a PCA is, let's check at my favorite youtube channel:
+[StatQuest: PCA Step-by-Step.](https://www.youtube.com/watch?v=FgakZw6K1QQ) 
+We will review the video together, wait for me please.
+
+To implement a PCA in python, a simple way is to use the PCA function in the sklearn.decomposition package. 
+Scikit-learn is a wonderfull Python library, and contains a lot of "must-have" features needed for a data-scientist. 
+Take some time to visite the official [website.](https://scikit-learn.org/stable/)
+For a pratical python PCA tutorial, let's check again a [Josh Starmer's video](https://www.youtube.com/watch?v=Lsue2gEM9D0&ab_channel=StatQuestwithJoshStarmer).
+
+Before doing a PCA on your data, it is mandatory to "center" your data (so that each gene has a mean equal to zero) and it is advise to "scale" your data (so that each gene has a standard deviation of 1).
+This way, you ensure that the PCA is accuratly done (with the centering) and all genes are considered base on their relative variability (with the scaling) and not their absolute value. It is not advise to consider multiple variables with different scale all together.
+
+You can use the following code before doing a PCA (X will be used in the PCA after this code)
+
+```python
+from sklearn.preprocessing import StandardScaler
+scaler = StandardScaler()
+X = scaler.fit_transform(my_data) # my_data being your dataframe containing your genes in column and samples in row
+```
+
+Now, perform a PCA and plot the samples using their coordinates in the first PCs. 
+TIPs: to select the good number of PCs, compute the percenatage of variance their capture.
+Use the annotations to color your plots, and see if you can already observe some kind of signal.
+
+(Bonus) PCA is also good way to find outliers. 
+Outliers are samples that are greatly different from the other samples. 
+The difference should be "huge", so that only experimental errors could explain it.
+Using the PCA and visualization, look at possible outliers.
+
+# Step 4 - tSNE and UMAP (optional)
+Another (more recent) good vizualization tool for high dimensional data is the [t-SNE](https://www.youtube.com/watch?v=NEaUSP4YerM&ab_channel=StatQuestwithJoshStarmer), and its little brother, the [UMAP](https://www.youtube.com/watch?v=eN0wFzBA4Sc&t=482s&ab_channel=StatQuestwithJoshStarmer). 
+The advantage of this two methods is that they can reduce the dimension of your data using a desired number of components (2 most of the time), not (too much) leaving alway a part of your data variability (in theory). 
+On the other hand, they do not preserve large distance interpretation, so that only "local similarities" must be interpreted (e.g., outliers are much more difficult to spot). 
+UMAP tends to preserve much better large distances, but still not reach the PCA in this topic.
+
+Try to implement a t-SNE and/or a UMAP. 
+UMAP can be implemented using the "umap" module, whereas t-SNE has a scikit-learn implementation. 
+
+Compare this visualition vs the PCA one.
