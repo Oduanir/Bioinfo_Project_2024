@@ -233,7 +233,7 @@ UMAP can be implemented using the "umap" module, whereas t-SNE has a scikit-lear
 
 Compare this visualition vs the PCA one.
 
-# Step 3 - Univariate Analysis
+# Step 5 - Univariate Analysis
 The next step in our project involves identifying genes whose expression significantly varies between groups of patients with ALS and healthy individuals. To accomplish this, we will utilize the DESeq2 package, a powerful tool designed for differential count data analysis from high-throughput sequencing experiments, such as RNAseq. DESeq2 facilitates this analysis by comparing gene expression levels across samples, accounting for biological variability. Importantly, before conducting the differential analysis, DESeq2 normalizes the data to ensure that comparisons are made on a consistent scale, adjusting for differences in library sizes or sequencing depth across samples.
 
 To begin, it is necessary to install DESeq2 in your Python environment. Although DESeq2 is primarily an R library, Python versions are available, which we will use [PyDESeq2 Github](https://github.com/owkin/PyDESeq2). Ensure that these tools are installed beforehand. Next, please refer to the examples provided on the package's GitHub page to conduct your comparison(s).
