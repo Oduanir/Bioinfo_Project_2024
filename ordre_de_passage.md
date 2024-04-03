@@ -46,6 +46,5 @@
 
 # 17h10 - 17h25
 - Aktouf	Yannis
-
-# 17h30 - 17h45
 - Belkout	Fares
+
