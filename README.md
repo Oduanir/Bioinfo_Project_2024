@@ -239,3 +239,108 @@ The next step in our project involves identifying genes whose expression signifi
 To begin, it is necessary to install DESeq2 in your Python environment. Although DESeq2 is primarily an R library, Python versions are available, which we will use [PyDESeq2 Github](https://github.com/owkin/PyDESeq2). Ensure that these tools are installed beforehand. Next, please refer to the examples provided on the package's GitHub page to conduct your comparison(s).
 
 Following the differential expression analysis and identification of significant genes using DESeq2, it's highly beneficial to visualize the results, enhancing the interpretability and communication of our findings. A particularly effective way to do this is through the creation of a volcano plot. A volcano plot displays the statistical significance of the expression changes (usually as -log10 of the p-value) against the magnitude of change (log2 fold change), allowing for an immediate visual assessment of the data. Genes that are significantly upregulated or downregulated are easily identifiable as they appear to the right and left of the plot, respectively, and further from the bottom, indicating higher levels of significance. This visualization not only helps in quickly spotting genes of potential interest but also in presenting a compelling graphical summary of the differential expression analysis. Creating a volcano plot can be done using various plotting libraries available in Python, such as Matplotlib or Seaborn.
+
+## STEP 6 - Multivariate Analysis - Elastic-Net
+DESeq2 is an excellent tool because it offers a way to estimate the relevance of each gene (to distinguish ALS vs control samples for example). 
+With this analysis, we are able to rank the genes from the most relevant to the less usefull for our question.
+However, this analysis looks at the genes one by one, and doesn't try to take advantage of gene combinations. 
+
+We can extend univariate analysis, using multiple genes simultaneously, with the help of logistic regression. 
+The idea behind a logistic regression is to use the RNA counts of a sample as variables (for all genes) and try to predict the sample group (ALS or control for example).
+To do so, we try to find a linear combination of the variables that compute a probability for each possible classes (ALS or control).
+
+Regularized logistic regressions are extentions of standard logistic regressions that penalized variables with no clear interest.
+In another words, they try to attribute a coefficient of 0 to variables with low interest (no useful signal).
+Therefore this methods are very good candidates for biomarker selections. 
+
+Among these regularized regressions, [elastic-net](https://www.youtube.com/watch?v=1dKRdX9bfIo&ab_channel=StatQuestwithJoshStarmer) is one of the most versatile. 
+It can handle "wide" dataset (more variables than samples), correlation (do not have to choose between very similar variables) and are easily configurable (parameter tuning).
+
+Warning: like the PCA, the elastic-net algorithm takes multiple variables into account. 
+Therefore, variables with high values and high standard deviation can introduce bias (being artifically more important). 
+So, like PCA, I advise you to normalize the data before using elastic-net.
+
+(Optional) Also, you can use the output of the PCA and perform the elastic-net on this transformed data.
+Interpretations will be more difficult (you will have to look at loadings of your components at the end of the analysis) but potentially more powerfull.
+
+### Elastic-Net implementation
+You can use the method "LogisticRegression" from scikitlearn (sklearn.linear_model) to implement an elastic-net analysis:
+```python
+from sklearn.linear_model import LogisticRegression
+elasticNet = LogisticRegression(penalty='elasticnet', solver='saga', l1_ratio=0.5, C=0.5).fit(x, y)
+```
+Where x contains the data and y the groups (2 groups only).
+Two parameters can be fine tune: 
+- l1_ratio: the ration between l1 and l2 regularizations
+- C: inverse of regularization strength
+
+### Fine tuning of parameters
+To fine tune parameters while avoiding overfitting, we can perform a [cross validation](https://www.youtube.com/watch?v=fSytzGwwBVw&ab_channel=StatQuestwithJoshStarmer): 
+```python
+from sklearn.linear_model import LogisticRegression
+elasticNet = LogisticRegressionCV(penalty='elasticnet', cv= 3, solver='saga', l1_ratios=[0.25,0.5,0.75], Cs=[0.1,0.5], scoring= 'accuracy').fit(x, y)
+```
+You have to specify the number of folds (here cv=3). 
+Choose a number of fold adapted to the data. 
+By default, the folds are stratified (they split the dataset taking the class balance into account, something that we absolutely want here).
+
+You also have to specify the scoring function used to evaluate and compare the models (accuracy in this example). 
+Check the [documentation](https://scikit-learn.org/stable/modules/classes.html#module-sklearn.metrics) to get a list of scoring functions and choose one adapted to the our data.
+Have a special look to [balanced accuracy](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.balanced_accuracy_score.html#sklearn.metrics.balanced_accuracy_score), [f1 score](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.f1_score.html#sklearn.metrics.f1_score), [ROC AUC](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.roc_auc_score.html#sklearn.metrics.roc_auc_score), and [the matthews correlation coefficient](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.matthews_corrcoef.html#sklearn.metrics.matthews_corrcoef).
+
+Once you have your elastic-net model (with the best parameters), you can look at its overall performance.
+```python
+model_prediction = elasticNet.predict(x)
+accuracy_train_dataset = sklearn.metrics.accuracy_score(y, model_prediction)
+```
+Here I used the accuracy metric, but remember to use (at least) the metric you used during the tuning.
+
+### Testing your model
+We built and evaluated our model on the same dataset. 
+Even if we used a cross-validation to choose the parameters, the final model used all the avalaible data. 
+Therefore we have no idea how the model performs on new data. 
+For this purpose, we need a "test set". 
+
+Download the "data set", process the data (warning: there might be some differences in the xml file) and use this new dataset to evaluate the model.
+I advise you to use different scores (begining with the one used to choose the parameters).
+
+### Get the best genes
+The elastic-net model contains (by definition) all the coefficients of the regression, i.e., the importance of each gene to differentiate the ALS samples from the control samples.
+```python
+elasticNet.coef_
+```
+You can rank these coefficients (using their absolute values) to obtain a good list of candidates.
+
+## STEP 7 - XGBOOST (Optional)
+There are many other methods to analyze multivariate data, and some of them are more or less equivalent. 
+A different class of methods compare to the regularization regression is the class of decision tree based methods. 
+Among this class, the "ensemble" classes, i.e., using a set of decision trees, are very used nowadays because they are very powerful.
+In particular, the xgboost method is extremely popular and used in pretty much all data analysis competitions.
+For a detailled explanation refer to this link [xgboost explanation](https://www.youtube.com/watch?v=OtD8wVaFm6E&ab_channel=StatQuestwithJoshStarmer).
+
+The xgboost implementation for biomarker selection is pretty straightforward using the package xgboost: 
+```python
+from xgboost import XGBClassifier
+model = XGBClassifier()
+model.fit(X_train, y) # xtrain is your data matrix, and y is your group labels (ctrl or ALS)
+```
+Then you can extract the feature (=gene) importance of your model:
+```python
+print(model.feature_importances_)
+```
+You can also used the built-in funtion to plot the feature importance: 
+```python
+from xgboost import plot_importance
+plot_importance(model)
+```
+As for the elastic-net, remember to:
+- Standardized your data
+- Test your model on an independant test data set (there is no fine tuning in the previous code, so cross validation is not mandatory)
+
+## STEP 8 (final)- Report your results
+At this step, you should have different lists of candidate biomarkers. 
+Propose a final ranked list, making use of all your results, containing the TOP "100" candidates.
+This list will be compared to the state of art of ALS biomarkers but also other related diseases.
+The state of art lists will be avalaible in this repository after the 4 may. 
+
+Good luck !
