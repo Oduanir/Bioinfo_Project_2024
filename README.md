@@ -21,7 +21,7 @@ At the conclusion of your project, you are required to submit the following comp
 
 The subject line of the email should read: "Projet_bioinfo_2024_lastname1_firstname1_lastname2_firstname2". Additionally, please include an archive named lastname1_firstname1_lastname2_firstname2" containing all the required elements mentioned above.
 
-The submission deadline for your project is 15 MAY 2024 (to be confirmed).
+The submission deadline for your project is 15 MAY 2024.
 
 Note that it is permissible to integrate your code and report within a single notebook, as well as to combine the notebook with standalone code files. However, the report must be consolidated into a single document for submission. The evaluation criteria will prioritize the following, in order:
 - Adherence to the provided instructions,
@@ -251,7 +251,7 @@ Note that FDR is automatically calculated by DESeq2.
 ### Graphical representation
 Following the differential expression analysis and identification of significant genes using DESeq2, it's highly beneficial to visualize the results, enhancing the interpretability and communication of our findings. A particularly effective way to do this is through the creation of a volcano plot. A [volcano plot](https://en.wikipedia.org/wiki/Volcano_plot_(statistics)) plot displays the statistical significance of the expression changes (usually as -log10 of the p-value) against the magnitude of change (log2 fold change), allowing for an immediate visual assessment of the data. Genes that are significantly upregulated or downregulated are easily identifiable as they appear to the right and left of the plot, respectively, and further from the bottom, indicating higher levels of significance. This visualization not only helps in quickly spotting genes of potential interest but also in presenting a compelling graphical summary of the differential expression analysis. Creating a volcano plot can be done using various plotting libraries available in Python, such as Matplotlib or Seaborn.
 
-## STEP 6 - Multivariate Analysis - Elastic-Net
+## STEP 6 - Multivariate Analysis - Elastic-Net (Option 1)
 DESeq2 is an excellent tool because it offers a way to estimate the relevance of each gene (to distinguish ALS vs control samples for example). 
 With this analysis, we are able to rank the genes from the most relevant to the less usefull for our question.
 However, this analysis looks at the genes one by one, and doesn't try to take advantage of gene combinations. 
@@ -322,7 +322,7 @@ elasticNet.coef_
 ```
 You can rank these coefficients (using their absolute values) to obtain a good list of candidates.
 
-## STEP 7 - XGBOOST (Optional)
+## STEP 7 - XGBOOST (Option 2)
 There are many other methods to analyze multivariate data, and some of them are more or less equivalent. 
 A different class of methods compare to the regularization regression is the class of decision tree based methods. 
 Among this class, the "ensemble" classes, i.e., using a set of decision trees, are very used nowadays because they are very powerful.
