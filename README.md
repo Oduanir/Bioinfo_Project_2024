@@ -238,7 +238,18 @@ The next step in our project involves identifying genes whose expression signifi
 
 To begin, it is necessary to install DESeq2 in your Python environment. Although DESeq2 is primarily an R library, Python versions are available, which we will use [PyDESeq2 Github](https://github.com/owkin/PyDESeq2). Ensure that these tools are installed beforehand. Next, please refer to the examples provided on the package's GitHub page to conduct your comparison(s).
 
-Following the differential expression analysis and identification of significant genes using DESeq2, it's highly beneficial to visualize the results, enhancing the interpretability and communication of our findings. A particularly effective way to do this is through the creation of a volcano plot. A volcano plot displays the statistical significance of the expression changes (usually as -log10 of the p-value) against the magnitude of change (log2 fold change), allowing for an immediate visual assessment of the data. Genes that are significantly upregulated or downregulated are easily identifiable as they appear to the right and left of the plot, respectively, and further from the bottom, indicating higher levels of significance. This visualization not only helps in quickly spotting genes of potential interest but also in presenting a compelling graphical summary of the differential expression analysis. Creating a volcano plot can be done using various plotting libraries available in Python, such as Matplotlib or Seaborn.
+### Multiple testing
+The p-values give the probability to obtain the observed the difference in mean of the RNA count if there is actually no difference in reality. 
+So low p-values can be interpreted as: "unexpected observations". 
+However, the more observations we make, the more likely we are to have surprising observations.
+So we should account for the "multiple testing" we do.
+In general, when exploring data (and not looking for a confirmation), controling the false discovery rate (fdr) is the way to go. 
+The fdr "limits" the number of false positive discoveries. 
+For example, a fdr of 5% tries to ensure that only 5% of our results will be false positives. 
+Note that FDR is automatically calculated by DESeq2.
+
+### Graphical representation
+Following the differential expression analysis and identification of significant genes using DESeq2, it's highly beneficial to visualize the results, enhancing the interpretability and communication of our findings. A particularly effective way to do this is through the creation of a volcano plot. A [volcano plot](https://en.wikipedia.org/wiki/Volcano_plot_(statistics)) plot displays the statistical significance of the expression changes (usually as -log10 of the p-value) against the magnitude of change (log2 fold change), allowing for an immediate visual assessment of the data. Genes that are significantly upregulated or downregulated are easily identifiable as they appear to the right and left of the plot, respectively, and further from the bottom, indicating higher levels of significance. This visualization not only helps in quickly spotting genes of potential interest but also in presenting a compelling graphical summary of the differential expression analysis. Creating a volcano plot can be done using various plotting libraries available in Python, such as Matplotlib or Seaborn.
 
 ## STEP 6 - Multivariate Analysis - Elastic-Net
 DESeq2 is an excellent tool because it offers a way to estimate the relevance of each gene (to distinguish ALS vs control samples for example). 
